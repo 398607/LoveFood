@@ -22,16 +22,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="index.py" />
     <Compile Include="main.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="manage.py" />
     <Compile Include="MapMaker.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Parser.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="settings.py" />
+    <Compile Include="urls.py" />
     <Compile Include="webSearch.py" />
+    <Compile Include="wsgi.py" />
+    <Compile Include="__init__.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,11 +11,14 @@ class Parser(HTMLParser):
 		self.mode = False
 		self.text = ""
 	def getText(self):
-		return self.text
+		t = ''
+		for line in self.text.split('.'):
+			t += '<p>' + line + '.</p>'
+		return t
 
 	def getWords(self):
 		dots = '.,?!-\%/:'
-		splits = '()\'\"[]'
+		splits = '()\'\"[]\n'
 		plain = self.text
 		for dot in dots:
 			#print dot
@@ -31,7 +34,7 @@ class Parser(HTMLParser):
 			self.mode = True
 	def handle_data(self, data):
 		if self.mode:
-			self.text += data.replace('\n', '')
+			self.text += data
 	def handle_endtag(self, tag):
 		if tag == 'p':
 			self.mode = False

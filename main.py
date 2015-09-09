@@ -1,5 +1,6 @@
 from webSearch import WebSearch
 from MapMaker import MapMaker
+import os
 
 ''' work done, files saved
 model = WebSearch()
@@ -17,3 +18,5 @@ print par.getWords()
 mapMaker = MapMaker()
 mapMaker.run()
 '''
+
+os.system('python manage.py runserver')

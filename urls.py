@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     #url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', index.View.index),
 	url(r'^test/$', index.View.getList),
+	url(r'^show/$', index.View.show)
 )

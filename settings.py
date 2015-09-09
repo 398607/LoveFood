@@ -50,12 +50,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'LoveFoodClient.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/templates',],
+        'DIRS': [BASE_DIR + '/LoveFood/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'LoveFoodClient.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
