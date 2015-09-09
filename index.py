@@ -4,22 +4,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 from Parser import Parser
 
-searchPage = '''
-
-<form method="post" action="/test/">
-<input type="text" name="str">
-<input type="submit" value="search">
-</form>
-
-'''
-
 class View(object):
 	mapper = {}
 	nameList = {}
 
 	@classmethod
 	def index(cls, request):
-		return HttpResponse(searchPage)
+		return render_to_response("index.html")
 
 	@classmethod
 	def init(cls, request):
@@ -50,6 +41,8 @@ class View(object):
 		idList = range(0, len(cls.nameList))
 
 		for s in strList:
+			if s == '':
+				continue
 			if cls.mapper.has_key(s):
 				idList = [x for x in idList if x in cls.mapper[s]]
 			else:
@@ -68,12 +61,14 @@ class View(object):
 
 			return render_to_response('result.html', {'list' : listing, 'str' : ' '.join(strList)})
 		else:
-			return HttpResponse('no results')
+			listing = []
+			return render_to_response('result.html', {'list' : listing, 'str' : ' '})
 
 	
 	@classmethod
 	@csrf_exempt
 	def show(cls, request):
+		cls.init(request)
 		if request.POST.has_key('id'):
 			id = int(request.POST['id'])
 
@@ -82,7 +77,8 @@ class View(object):
 
 			par = Parser()
 			par.feed(page.read())
+			text = par.getText()
 
-			return HttpResponse('<h1>' + name + '</h1>' + par.getText())
+			return render_to_response('show.html', {'name':name, 'text':text})
 		else:
-			return HttpResponse('page not exist')
+			return render_to_response('show.html', {'name':'empty doc', 'text':''})

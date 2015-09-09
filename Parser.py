@@ -11,10 +11,7 @@ class Parser(HTMLParser):
 		self.mode = False
 		self.text = ""
 	def getText(self):
-		t = ''
-		for line in self.text.split('.'):
-			t += '<p>' + line + '.</p>'
-		return t
+		return self.text
 
 	def getWords(self):
 		dots = '.,?!-\%/:'
