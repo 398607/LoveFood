@@ -1,0 +1,47 @@
+<html>
+
+<head>
+
+	<style type="text/css">
+		body {
+			background-image:url("http://img.taopic.com/uploads/allimg/140512/235086-14051221503819.jpg");
+			background-attachment:fixed;
+			background-position:center center;
+			font-family:'Microsoft YaHei UI';
+		}
+		#p {
+			width:60%;
+			margin-left:20%;
+			position:absolute;
+			background-color:#eddeaa;
+			z-index:0;
+		}
+		#big {
+			opacity:0.8;
+			position:relative;
+		}
+		p {
+			margin:20px;
+			text-indent:40px;
+		}
+	</style>
+
+	<title>{{ name }}</title>
+</head>
+
+<body>
+	<h1 align="center">{{ name }}</h1>
+
+	<div id="big">
+
+		<div id="p">
+			{% for para in text %}
+			<p>{{ para }}</p>
+			{% endfor %}
+		</div>
+
+	</div>
+
+</body>
+
+</html>

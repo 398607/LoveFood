@@ -11,7 +11,7 @@ class Parser(HTMLParser):
 		self.mode = False
 		self.text = ""
 	def getText(self):
-		return self.text
+		return self.text.split('\n')
 
 	def getWords(self):
 		dots = '.,?!-\%/:'
@@ -35,3 +35,4 @@ class Parser(HTMLParser):
 	def handle_endtag(self, tag):
 		if tag == 'p':
 			self.mode = False
+			self.text += '\n'

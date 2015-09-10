@@ -1,0 +1,82 @@
+
+<html>
+	<head>
+		<title>Search Results</title>
+
+		<style type="text/css">
+		body {
+			background-image:url("http://img.taopic.com/uploads/allimg/140512/235086-14051221503819.jpg");
+			background-attachment:fixed;
+			background-position:center center;
+			font-family:'Microsoft YaHei UI';
+		}
+		#big {
+			opacity: 0.8;
+		}
+		.form {
+			margin-right:0%;
+			margin-left:0%;
+			width:100%;
+			height:auto;
+		}
+		.btn {
+			background-color:#f68433;
+			border-color:transparent;
+			font-family:Arial;
+		}
+		#tab {
+			background-color:#eddeaa;
+		}
+	</style>
+
+	</head> 
+
+<body>
+	<div id="big">
+	<div class="form">
+
+	<h1 align="center">Search Results : {{str}}</h1>
+
+		<table border="1" align="center" id="tab">
+			<tr>
+				<th>Id</th>
+				<th>Address</th>
+				<th>Entry</th>
+			</tr>
+
+			{% for item in list %}
+			<tr>
+				<th>
+					{{item.id}}
+				</th>
+				<th>
+					{{item.name}}
+				</th>
+				<th>
+					<input class="btn" type="submit" onclick="jsPost({ id: {{item.id}} })" value="enter">
+				</th>
+			</tr>
+			{% endfor %}
+
+		</table>
+
+		<script type="text/javascript">
+
+			var jsPost = function(values) {
+				var id = Math.random();
+
+				document.write('<form id="post' + id + '" name="post'+ id + '" action="/show/" method="post">');
+				for (var key in values) {
+					document.write('<input type="hidden" name="' + key + '" value="' + values[key] + '" />');
+				}
+				document.write('</form>');
+				document.getElementById('post' + id).submit();
+			}
+
+		</script>
+	
+	</div>
+	</div>
+
+</body>
+</html> 

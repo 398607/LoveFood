@@ -81,4 +81,4 @@ class View(object):
 
 			return render_to_response('show.html', {'name':name, 'text':text})
 		else:
-			return render_to_response('show.html', {'name':'empty doc', 'text':''})
+			return render_to_response('show.html', {'name':'empty doc', 'text':['']})
