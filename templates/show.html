@@ -24,9 +24,25 @@
 			margin:20px;
 			text-indent:40px;
 		}
+		.btn {
+			background-color:#f68433;
+			border-color:transparent;
+			font-family:Arial;
+		}
 	</style>
 
 	<title>{{ name }}</title>
+	<script type="text/javascript">
+
+		function back() {
+			var id = Math.random();
+
+			document.write('<form id="post' + id + '" name="post'+ id + '" action="/test/" method="post">');
+			document.write('<input type="hidden" name="str" value="{{str}}" />');
+			document.write('</form>');
+			document.getElementById('post' + id).submit();
+		}
+	</script>
 </head>
 
 <body>
@@ -38,6 +54,9 @@
 			{% for para in text %}
 			<p>{{ para }}</p>
 			{% endfor %}
+			<div align="center">
+			<input class="btn" type="submit" onclick="back()" value="back"/>
+			</div>
 		</div>
 
 	</div>

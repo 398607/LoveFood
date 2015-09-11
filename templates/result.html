@@ -37,6 +37,15 @@
 
 	<h1 align="center">Search Results : {{str}}</h1>
 
+		<table align="center">
+			<tr>
+				<td><input class="btn" type="submit" onclick="prevpage()" value="prev"/></td>
+				<td><h2>{{curpage}} / {{totalpage}}</h2></td>
+				<td><input class="btn" type="submit" onclick="nextpage()" value="next"/></td>
+			</tr>
+		</table>
+
+
 		<table border="1" align="center" id="tab">
 			<tr>
 				<th>Id</th>
@@ -53,14 +62,26 @@
 					{{item.name}}
 				</th>
 				<th>
-					<input class="btn" type="submit" onclick="jsPost({ id: {{item.id}} })" value="enter">
+					<input class="btn" type="submit" onclick="jsPost({ id: {{item.id}} })" value="enter"/>
 				</th>
 			</tr>
 			{% endfor %}
 
 		</table>
+		<div align="center">
+			<input class="btn" type="submit" onclick="back()" value="back"/>
+		</div>
 
 		<script type="text/javascript">
+
+			function back() {
+				var id = Math.random();
+
+				document.write('<form id="post' + id + '" name="post'+ id + '" action="/home/" method="post">');
+				document.write('<input type="hidden" name="str" value="{{str}}" />');
+				document.write('</form>');
+				document.getElementById('post' + id).submit();
+			}
 
 			var jsPost = function(values) {
 				var id = Math.random();
@@ -69,10 +90,28 @@
 				for (var key in values) {
 					document.write('<input type="hidden" name="' + key + '" value="' + values[key] + '" />');
 				}
+				document.write('<input type="hidden" name="str" value="{{str}}" />');
 				document.write('</form>');
 				document.getElementById('post' + id).submit();
 			}
+			function prevpage() {
+				var id = Math.random();
 
+				document.write('<form id="post' + id + '" name="post'+ id + '" action="/test/" method="post">');
+				document.write('<input type="hidden" name="curpage" value="' + ({{curpage}} - 1) + '" />');
+				document.write('<input type="hidden" name="str" value="{{str}}" />');
+				document.write('</form>');
+				document.getElementById('post' + id).submit();
+			}
+			function nextpage() {
+				var id = Math.random();
+
+				document.write('<form id="post' + id + '" name="post'+ id + '" action="/test/" method="post">');
+				document.write('<input type="hidden" name="curpage" value="' + ({{curpage}} + 1) + '" />');
+				document.write('<input type="hidden" name="str" value="{{str}}" />');
+				document.write('</form>');
+				document.getElementById('post' + id).submit();
+			}
 		</script>
 	
 	</div>

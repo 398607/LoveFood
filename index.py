@@ -9,6 +9,7 @@ class View(object):
 	nameList = {}
 
 	@classmethod
+	@csrf_exempt
 	def index(cls, request):
 		return render_to_response("index.html")
 
@@ -41,28 +42,45 @@ class View(object):
 		idList = range(0, len(cls.nameList))
 
 		for s in strList:
-			if s == '':
+			if len(s) == 0:
 				continue
-			if cls.mapper.has_key(s):
+			elif cls.mapper.has_key(s):
 				idList = [x for x in idList if x in cls.mapper[s]]
 			else:
 				idList = []
-
 		
-		if len(idList) > 0:
+		if request.POST.has_key('curpage'):
+			curpage = int(request.POST['curpage'])
+		else:
+			curpage = 0
+		
+		totalpage = len(idList) / 10
+		if len(idList[totalpage * 10 : min(totalpage * 10 + 10, len(idList) - 1)]) == 0:
+			totalpage -= 1
+
+
+		if curpage < 0:
+			curpage = 0
+		elif curpage > totalpage:
+			curpage = totalpage
+
+		nowList = idList[curpage * 10 : min(curpage * 10 + 10, len(idList) - 1)]
+		
+		
+		if len(nowList) > 0:
 
 			listing = []
-			for id in idList:
+			for id in nowList:
 				p = {}
 				p['id'] = id
 				p['add'] = cls.nameList[id].replace('\\', '/')
 				p['name'] = cls.nameList[id].split('\\')[-1].split('.')[0]
 				listing.append(p)
 
-			return render_to_response('result.html', {'list' : listing, 'str' : ' '.join(strList)})
+			return render_to_response('result.html', {'list' : listing, 'str' : ' '.join(strList), 'curpage': curpage, 'totalpage': totalpage})
 		else:
 			listing = []
-			return render_to_response('result.html', {'list' : listing, 'str' : ' '})
+			return render_to_response('result.html', {'list' : listing, 'str' : ' '.join(strList), 'curpage' : 0, 'totalpage' : 0})
 
 	
 	@classmethod
@@ -74,11 +92,12 @@ class View(object):
 
 			page = open(cls.nameList[id], 'r')
 			name = cls.nameList[id].split('\\')[-1].split('.')[0]
+			str = request.POST['str']
 
 			par = Parser()
 			par.feed(page.read())
 			text = par.getText()
 
-			return render_to_response('show.html', {'name':name, 'text':text})
+			return render_to_response('show.html', {'name':name, 'text':text, 'str': str})
 		else:
-			return render_to_response('show.html', {'name':'empty doc', 'text':['']})
+			return render_to_response('show.html', {'name':'empty doc', 'text':[''], 'str': str})
