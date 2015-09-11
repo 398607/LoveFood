@@ -39,6 +39,7 @@
 
 			document.write('<form id="post' + id + '" name="post'+ id + '" action="/test/" method="post">');
 			document.write('<input type="hidden" name="str" value="{{str}}" />');
+			document.write('<input type="hidden" name="curpage" value="{{curpage}}" />');
 			document.write('</form>');
 			document.getElementById('post' + id).submit();
 		}

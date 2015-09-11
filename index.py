@@ -89,6 +89,7 @@ class View(object):
 		cls.init(request)
 		if request.POST.has_key('id'):
 			id = int(request.POST['id'])
+			curpage = int(request.POST['curpage'])
 
 			page = open(cls.nameList[id], 'r')
 			name = cls.nameList[id].split('\\')[-1].split('.')[0]
@@ -98,6 +99,6 @@ class View(object):
 			par.feed(page.read())
 			text = par.getText()
 
-			return render_to_response('show.html', {'name':name, 'text':text, 'str': str})
+			return render_to_response('show.html', {'name':name, 'text':text, 'str': str, 'curpage': curpage})
 		else:
-			return render_to_response('show.html', {'name':'empty doc', 'text':[''], 'str': str})
+			return render_to_response('show.html', {'name':'empty doc', 'text':[''], 'str': '', 'curpage': 0})

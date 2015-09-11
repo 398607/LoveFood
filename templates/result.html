@@ -91,6 +91,7 @@
 					document.write('<input type="hidden" name="' + key + '" value="' + values[key] + '" />');
 				}
 				document.write('<input type="hidden" name="str" value="{{str}}" />');
+				document.write('<input type="hidden" name="curpage" value="{{curpage}}" />');
 				document.write('</form>');
 				document.getElementById('post' + id).submit();
 			}
